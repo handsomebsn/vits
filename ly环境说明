@@ -1,0 +1,15 @@
+python 3.6.8
+
+用下面内容替换requirements.txt
+
+Cython==0.29.21
+librosa==0.8.0
+matplotlib==3.3.1
+numpy==1.18.5
+phonemizer==2.2.1
+scipy==1.5.2
+tensorboard==2.3.0
+torch==1.8.1
+torchvision==0.9.1
+Unidecode==1.1.1
+
