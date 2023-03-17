@@ -1,0 +1,76 @@
+python 3.6.8 用conda来管理python环境
+
+conda create -name vits python=3.6.8
+conda activate vits
+
+
+requirements.txt里面改为
+
+Cython==0.29.21
+librosa==0.8.0
+matplotlib==3.3.1
+numpy==1.18.5
+phonemizer==2.2.1
+scipy==1.5.2
+tensorboard==2.3.0
+torch==1.6.0
+torchvision==0.7.0
+Unidecode==1.1.1
+
+改为
+Cython==0.29.21
+librosa==0.8.0
+matplotlib==3.3.1
+numpy==1.18.5
+phonemizer==2.2.1
+scipy==1.5.2
+tensorboard==2.3.0
+Unidecode==1.1.1
+后用pip install -r requirements.txt下载里面的包，然后到pytouch的官网按照官网提示下载gpu版的torch,
+torchvision包
+
+
+
+
+
+1、库相关的错误(assert torch.cuda.is_available(), "CPU training is not allowed.")
+  安装的pytouch为cpu的版本，找到python的官网按照提示安装gpu的版本，注意网路要稳定
+2、train.py里bug()
+```python
+  os.environ['MASTER_PORT'] = '88888'
+```
+上面的tcp端口明显超出范围，你要改为一个未被占用的tcp端口，比如
+
+```python
+  os.environ['MASTER_PORT'] = '588'
+```
+
+3、windows不支持NCCL backend
+
+```python
+dist.init_process_group("NCCL", init_method="env://")
+```
+
+改为
+
+```python
+dist.init_process_group("gloo", init_method="env://")
+```
+
+
+
+4、训练中文时json里的
+
+```javascript
+"text_cleaners":["english_cleaners2"],
+```
+改为
+
+```javascript
+"text_cleaners":["chinese_cleaner"],
+```
+
+
+
+
+
